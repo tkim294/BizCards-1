@@ -1,10 +1,14 @@
 import React from "react";
 import {StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 
-export default class App extends React.Component {
-    state={
-        email:"",
-        password:""
+export default class LoginScreen extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: "",
+            password: ""
+        }
     }
     render(){
         return (
@@ -28,7 +32,7 @@ export default class App extends React.Component {
                 <TouchableOpacity>
                     <Text style={styles.forgot}>Forgot Password?</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.loginBtn}>
+                <TouchableOpacity style={styles.loginBtn} onPress={()=> this.props.navigation.navigate('Home')}>
                     <Text style={styles.loginText}>LOGIN</Text>
                 </TouchableOpacity>
                 <TouchableOpacity>
