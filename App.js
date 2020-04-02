@@ -1,8 +1,10 @@
+import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import CreateCardScreen from './src/screens/CreateCardScreen';
+import ForgotPassword from './src/screens/ForgotPassword'
 
 
 const navigator = createStackNavigator(
@@ -22,6 +24,12 @@ const navigator = createStackNavigator(
     CreateCard:{
       screen: CreateCardScreen,
 
+    },
+    Forgot: {
+      screen: ForgotPassword,
+      navigationOptions:{
+        headerShown: false
+      }
     },
   }
 );
