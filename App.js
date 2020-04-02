@@ -4,7 +4,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import CreateCardScreen from './src/screens/CreateCardScreen';
-import ForgotPassword from './src/screens/ForgotPassword'
+import ForgotPassword from './src/screens/ForgotPassword';
+import CreateProfileScreen from './src/screens/CreateProfile'
 
 
 const navigator = createStackNavigator(
@@ -31,6 +32,9 @@ const navigator = createStackNavigator(
         headerShown: false
       }
     },
+    CreateProfile: {
+      screen: CreateProfileScreen,
+    }
   }
 );
 

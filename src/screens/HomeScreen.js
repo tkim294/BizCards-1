@@ -19,7 +19,9 @@ export default class HomeScreen extends React.Component {
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('CreateCard')} >
                     <Text > Create New Card </Text>
                 </TouchableOpacity>
-
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('CreateProfile')} >
+                    <Text > Create Profile </Text>
+                </TouchableOpacity>
             </View>
         );
     }
