@@ -5,39 +5,18 @@ import { Card, CheckBox } from 'react-native-elements';
 export default class CreateCardScreen extends React.Component {
 
     state = {
-        name: '',
+        firstName: '',
+        lastName:'',
         email: '',
-        phone: ''
+        mobile: '',
+        instagram:'',
+        twitter:'',
+        gmail:'',
+        vsco:'',
+        yahoo:'',
+        github:'',
+        other:''
       };
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "test@test.com",
-            firstName: "John",
-            lastName: "Doe",
-            mobile: "1-234-567-8910",
-            data: [
-                {name: 'Instagram', checked: true},
-                {name: 'Twitter', checked: false},
-                {name: 'GMail', checked: true},
-                {name: 'Vsco', checked: true},
-                {name: 'Yahoo', checked: false},
-                {name: 'Github', checked: true},
-                {name: 'Otherthings', checked: true},
-                {name: 'one otherthing', checked: false},
-                {name: 'just one more', checked: true},
-        ]}
-    }
-
-    handleClick = this.handleClick.bind(this);
-
-    handleClick(name){
-        const data = this.state.data;
-        const index = data.findIndex(x => x.name === name);
-        data[index].checked = !data[index].checked;
-        this.setState(data);
-    }
 
     render() {
 
@@ -55,9 +34,9 @@ export default class CreateCardScreen extends React.Component {
                             </Image>
                             <View style={{ flexDirection: 'column' }} >
                                 <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} 
-                                            placeholder = 'Name'
-                                            value={this.state.name}
-                                            onChangeText={name => this.setState({ name })}
+                                            placeholder = 'First Name'
+                                            value={this.state.firstName}
+                                            onChangeText={firstName => this.setState({ firstName })}
                                             />
                                 <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} 
                                             placeholder = 'Email'
@@ -65,8 +44,8 @@ export default class CreateCardScreen extends React.Component {
                                             onChangeText={email => this.setState({ email })} />
                                 <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} 
                                             placeholder = 'Phone Number'
-                                            value={this.state.phone}
-                                            onChangeText={phone => this.setState({ phone })} />
+                                            value={this.state.mobile}
+                                            onChangeText={mobile => this.setState({ mobile })} />
                             </View>
                         </View>
 
@@ -81,7 +60,34 @@ export default class CreateCardScreen extends React.Component {
                     <Card
                         containerStyle={styles.primaryCard} >
                         <View style={{ flexDirection: 'column', justifyContent: 'space-between' }} >
-                            {this.state.data.map((item) => <CheckBox right iconRight title={item.name} key={item.name} onPress={() => this.handleClick(item.name)} checked={item.checked} />)}
+                        <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} 
+                                            placeholder = 'Instragram Handle'
+                                            value={this.state.instagram}
+                                            onChangeText={instagram => this.setState({ instagram })} />
+                        <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} 
+                                            placeholder = 'Twitter Handle'
+                                            value={this.state.twitter}
+                                            onChangeText={twitter => this.setState({ twitter })} />
+                        <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} 
+                                            placeholder = 'GMail'
+                                            value={this.state.gmail}
+                                            onChangeText={gmail => this.setState({ gmail })} />
+                        <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} 
+                                            placeholder = 'Vsco Handle'
+                                            value={this.state.vsco}
+                                            onChangeText={vsco => this.setState({ vsco })} />
+                        <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} 
+                                            placeholder = 'Yahoo'
+                                            value={this.state.yahoo}
+                                            onChangeText={yahoo => this.setState({ yahoo })} />
+                        <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} 
+                                            placeholder = 'Github Username'
+                                            value={this.state.github}
+                                            onChangeText={github => this.setState({ github })} />
+                        <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} 
+                                            placeholder = 'Other'
+                                            value={this.state.other}
+                                            onChangeText={other => this.setState({ other })} />
                         </View>
 
                     </Card>
