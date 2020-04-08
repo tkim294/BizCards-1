@@ -23,6 +23,15 @@ const navigator = createStackNavigator(
       }, 
     CreateCard:{
       screen: CreateCardScreen,
+      navigationOptions: {
+        headerStyle:{
+          backgroundColor: '#003f5c',
+        },
+        headerBackTitle: 'Cancel',
+        headerBackTitleStyle:{color: '#fb5b5a'},
+        headerTintColor: '#fb5b5a',
+        headerTitle: () => null
+      }
 
     },
     Forgot: {
