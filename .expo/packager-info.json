@@ -1,9 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 9064,
-  "expoServerNgrokUrl": "https://2r-8ct.ehalfman.bizcards.exp.direct",
-  "packagerNgrokUrl": "https://packager.2r-8ct.ehalfman.bizcards.exp.direct",
-  "ngrokPid": 1440
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "webpackServerPort": null
 }

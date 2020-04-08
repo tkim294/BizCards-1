@@ -6,6 +6,7 @@ import LoginScreen from './src/screens/LoginScreen';
 import CreateCardScreen from './src/screens/CreateCardScreen';
 import ForgotPassword from './src/screens/ForgotPassword';
 import CreateProfileScreen from './src/screens/CreateProfile'
+import EmailSentScreen from './src/screens/EmailSentScreen';
 
 
 const navigator = createStackNavigator(
@@ -31,6 +32,12 @@ const navigator = createStackNavigator(
       navigationOptions:{
         headerShown: false
       }
+    },
+    EmailSent: {
+      screen: EmailSentScreen,
+      navigationOptions:{
+        headerShown: false,
+      },
     },
     CreateProfile: {
       screen: CreateProfileScreen,
