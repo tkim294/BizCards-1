@@ -1,46 +1,20 @@
-import React from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import HomeScreen from './src/screens/HomeScreen';
-import LoginScreen from './src/screens/LoginScreen';
-import CreateCardScreen from './src/screens/CreateCardScreen';
-import ForgotPassword from './src/screens/ForgotPassword'
+import React from 'react'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunkMiddleware from 'redux-thunk'
 
+import SwitchNavigator from './navigation/SwitchNavigator'
+import reducer from './reducers'
 
-const navigator = createStackNavigator(
-  {
-    Login: {
-      screen: LoginScreen,
-      navigationOptions: {
-        headerShown: false,
-      }
-    },
-      Home: {
-        screen: HomeScreen,
-        navigationOptions: {
-          headerShown: false
-        }
-      }, 
-    CreateCard:{
-      screen: CreateCardScreen,
-      navigationOptions: {
-        headerStyle:{
-          backgroundColor: '#003f5c',
-        },
-        headerBackTitle: 'Cancel',
-        headerBackTitleStyle:{color: '#fb5b5a'},
-        headerTintColor: '#fb5b5a',
-        headerTitle: () => null
-      }
+const middleware = applyMiddleware(thunkMiddleware)
+const store = createStore(reducer, middleware)
 
-    },
-    Forgot: {
-      screen: ForgotPassword,
-      navigationOptions:{
-        headerShown: false
-      }
-    },
-  }
-);
-
-export default createAppContainer(navigator);
+export default class App extends React.Component {
+	render() {
+		return (
+			<Provider store={store}>
+				<SwitchNavigator />
+			</Provider>
+		)
+	}
+}
