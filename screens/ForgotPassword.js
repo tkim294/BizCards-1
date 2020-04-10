@@ -29,7 +29,7 @@ const ForgotPassword = props => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Forgot Password?</Text>
+            <Text style={styles.MainText}>Forgot Password?</Text>
             <View>
                 <View style={styles.iconContainer}>
                     <View><Ionicons name="md-mail" size={30} /></View>
@@ -50,7 +50,7 @@ const ForgotPassword = props => {
                         onPress={sendHandler}
                         color='black'
                     >
-                        <Text>SEND</Text>
+                        <Text style={styles.sendText}>SEND</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -61,14 +61,14 @@ const ForgotPassword = props => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#003f5c',
+        backgroundColor: '#ffffff',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    text: {
+    MainText: {
         fontWeight: "bold",
         height: 50,
-        color: "white",
+        color: "black",
         fontSize: 30,
         marginLeft: 30,
         alignItems: 'center',
@@ -99,12 +99,16 @@ const styles = StyleSheet.create({
     },
     sendButton: {
         width: "80%",
-        backgroundColor: "#fb5b5a",
+        backgroundColor: '#032c8e',
         borderRadius: 20,
         height: 50,
         alignItems: "center",
         justifyContent: "center",
         marginTop: 10,
     },
+    sendText: {
+        color: 'white',
+        fontSize: 15,
+    }
 })
 export default ForgotPassword;

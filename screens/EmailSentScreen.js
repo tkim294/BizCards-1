@@ -14,7 +14,7 @@ const EmailSentScreen = props => {
             </View>
             <View style={styles.buttonContainer} >
                 <TouchableOpacity style={styles.button} onPress={() => {
-                    props.navigation.popToTop();
+                    props.navigation.navigate('Login');
                 }}>
                     <Text style={styles.buttonText} >DONE</Text>
                 </TouchableOpacity>
@@ -26,17 +26,17 @@ const EmailSentScreen = props => {
 const styles = StyleSheet.create({
     textContainer: {
         flex: 1,
-        backgroundColor: '#003f5c',
+        backgroundColor: '#ffffff',
         alignItems: 'center',
         justifyContent: 'center',
     },
     text: {
         fontSize: 25,
-        color: 'white',
+        color: 'black',
         margin: 10,
     },
     emailSentText: {
-        color: 'white',
+        color: 'black',
         fontSize: 15,
         alignItems: 'center',
         justifyContent: 'center'
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     },
     button: {
         width: "80%",
-        backgroundColor: "#fb5b5a",
+        backgroundColor: "#032c8e",
         borderRadius: 20,
         height: 50,
         alignItems: "center",
