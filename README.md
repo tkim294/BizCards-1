@@ -1,9 +1,7 @@
 <<<<<<< HEAD
 # BizCards
 Customizable Electronic business cards
-#
-#
-#
+
 ### Run The code:
 #### rename reducer > reducers
 #### remove project documents dir
