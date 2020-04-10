@@ -7,12 +7,12 @@ Customizable Electronic business cards
 #### remove project documents dir
 #### create .env file (follow .env-example syntax)
 #####
-##### API_KEY=XXXXXXXX
-##### AUTH_DOMAIN=XXXXXXX
-##### DATABASE_URL=XXXXX
-##### PROJECT_ID=XXXXX
-##### MESSAGE_SENDER_ID=XXXXXX
-##### APP_ID=XXXXX
+###### API_KEY=XXXXXXXX
+###### AUTH_DOMAIN=XXXXXXX
+###### DATABASE_URL=XXXXX
+###### PROJECT_ID=XXXXX
+###### MESSAGE_SENDER_ID=XXXXXX
+###### APP_ID=XXXXX
 #####
 #### place .env in the same location as .env-example (Mac view hidden files: CMD Shift .)
 #### Run yarn install; expo install react-native-gesture-handler; yarn start
