@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # BizCards
 Customizable Electronic business cards
 
@@ -22,8 +21,4 @@ Customizable Electronic business cards
 #
 #
 Code was adapted from https://heartbeat.fritz.ai/how-to-build-an-email-authentication-app-with-firebase-firestore-and-react-native-a18a8ba78574 
-=======
 
-
-
->>>>>>> bc60b15aec15fc6c5a23b95ec53b4d456a28a0f5
