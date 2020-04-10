@@ -3,6 +3,7 @@ Customizable Electronic business cards
 
 ### Run The code:
 #### rename reducer > reducers
+#### remove project documents dir
 #### create .env file (follow .env-example syntax)
 #### place .env in the same location as .env-example (Mac view hidden files: CMD Shift .)
 #### Run yarn install; expo install react-native-gesture-handler; yarn start
