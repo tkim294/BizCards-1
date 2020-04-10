@@ -33,6 +33,10 @@ class Login extends React.Component {
 					placeholderTextColor="#8BB8CE"
 					autoCapitalize='none'
 				/>
+				<Button
+					title="Forgot Your Password?"
+					onPress={() => this.props.navigation.navigate('Signup')}
+				/>
 				<TextInput
 					style={styles.inputBox}
 					value={this.props.user.password}
