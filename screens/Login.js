@@ -49,7 +49,7 @@ class Login extends React.Component {
 					onPress={() => this.props.navigation.navigate('Signup')}
 				/>
 				 <TouchableOpacity onPress={()=> this.props.navigation.navigate('Forgot')}>
-                    <Text style={styles.forgot}>Forgot Password?</Text>
+                    <Text style={styles.forgotText}>Forgot Password?</Text>
                 </TouchableOpacity>
 			</View>
 		)
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     buttonText:{
         color:"white"
 	},
-	forgot: {
+	forgotText: {
 		fontSize: 15,
 		color: 'blue',
 		margin: 5,
