@@ -20,7 +20,7 @@ const firebaseConfig = {
 }
 
 // Initialize Firebase
-let Firebase = firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig)
 
 export const db = firebase.firestore()
 
@@ -28,5 +28,11 @@ export const db = firebase.firestore()
 db.settings({
 	timestampsInSnapshots: true
 })
+const Firebase = {
+	// auth
+	passwordReset: email => {
+		return firebase.auth().sendPasswordResetEmail(email)
+	}
+}
 
 export default Firebase

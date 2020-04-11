@@ -1,15 +1,23 @@
 import React, { Component, Fragment, useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Button,  TextInput, Keyboard, Alert, Image } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Button, TextInput, Keyboard, Alert, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux'
-import Firebase from '../config/Firebase'
+import Firebase, { passwordReset } from '../config/Firebase'
 
 const ForgotPassword = props => {
     const [email, setEmail] = useState('');
 
     const sendHandler = () => {
         Keyboard.dismiss();
-        if (email == '') { // or the email does not exist in our database
+        Firebase.passwordReset(email).then(function () {
+            props.navigation.navigate({
+                routeName: 'EmailSent',
+                params: {
+                    userEmail: email,
+                }
+            })
+        }
+        ).catch(function (error) {
             Alert.alert(
                 'Invalid email address',
                 'Please enter valid email address',
@@ -18,15 +26,7 @@ const ForgotPassword = props => {
                 ],
                 { cancelable: false }
             )
-        } else { // If the email is valid
-            // Send email
-            props.navigation.navigate({
-                routeName: 'EmailSent',
-                params: {
-                    userEmail: email,
-                }
-            });
-        }
+        })
     }
 
     return (
@@ -36,30 +36,32 @@ const ForgotPassword = props => {
                 source={require('../assets/logo1M.png')}
             />
             <Text style={styles.MainText}>Forgot Your Password?</Text>
-                <View style={styles.iconContainer}>
-                    <View><Ionicons name="md-mail" size={30} /></View>
-                    <View>
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder="Enter email"
-                            onChangeText={text => setEmail(text)}
-                            underlineColorAndroid="transparent"
-                        />
-                    </View>
+            <View style={styles.iconContainer}>
+                <View><Ionicons name="md-mail" size={30} /></View>
+                <View>
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Enter email"
+                        onChangeText={text => setEmail(text)}
+                        underlineColorAndroid="transparent"
+                    />
                 </View>
-                    <TouchableOpacity
-                        style={styles.sendButton}
-                        title='Submit'
-                        color="#2E8B57"
-                        onPress={sendHandler}
-                        color='black'
-                    >
-                        <Text style={styles.sendText}>Reset Your Password</Text>
-                    </TouchableOpacity>
-            <Button
+            </View>
+            <TouchableOpacity
+                style={styles.sendButton}
+                title='Submit'
+                color="#2E8B57"
+                onPress={sendHandler}
+                color='black'
+            >
+                <Text style={styles.sendText}>Reset Your Password</Text>
+            </TouchableOpacity>
+            <View style={styles.buttonContainer}>
+                <Button
                     title="Remembered Your Password? Login"
-                    onPress={() => this.props.navigation.navigate('Login')}
+                    onPress={() => { props.navigation.navigate('Login') }}
                 />
+            </View>
         </View>
     );
 }
@@ -71,8 +73,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    tinyLogo:{
-        marginBottom:30
+    tinyLogo: {
+        marginBottom: 30
     },
     MainText: {
         fontWeight: "bold",
@@ -118,6 +120,9 @@ const styles = StyleSheet.create({
     sendText: {
         color: 'white',
         fontSize: 15,
+    },
+    buttonContainer: {
+        margin: 10,
     }
 })
 export default ForgotPassword;

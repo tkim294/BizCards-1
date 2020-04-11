@@ -17,7 +17,7 @@ const SwitchNavigator = createSwitchNavigator(
 		Profile: {
 			screen: Profile
 		},
-		Forgot: {
+		ForgotPwd: {
 			screen: ForgotPassword
 		},
 		EmailSent: {
