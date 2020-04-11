@@ -3,6 +3,7 @@ import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image } fr
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateEmail, updatePassword, signup, updateName, updateConfirmPassword} from '../actions/user'
+import firebase from 'firebase';
 
 class Signup extends React.Component {
 	handleSignUp = () => {
@@ -22,8 +23,14 @@ class Signup extends React.Component {
 			if(this.props.user.cfrmPassword !== this.props.user.password){
 					throw "Passwords do not match!"
 			}
-			this.props.signup()
-			this.props.navigation.navigate('Profile')
+			firebase.auth()
+			.createUserWithEmailAndPassword(this.props.user.email, this.props.user.password)
+			.then(user => {
+				this.props.signup(user);
+			})
+			.catch(e => {
+				alert(e);
+			});
 			
 		}catch(e){
 			alert(e);
