@@ -19,8 +19,8 @@ const ForgotPassword = props => {
         }
         ).catch(function (error) {
             Alert.alert(
-                'Invalid email address',
-                'Please enter valid email address',
+                'Invalid Email Address',
+                'Please Enter a Valid Email Address',
                 [
                     { text: 'OK', onPress: () => console.log('OK Pressed') },
                 ],
