@@ -2,7 +2,6 @@
 Customizable Electronic business cards
 
 ### Run The code:
-#### remove project documents dir
 #### create .env file (follow .env-example syntax)
 #####
 ###### API_KEY=XXXXXXXX
