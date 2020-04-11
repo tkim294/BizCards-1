@@ -6,9 +6,10 @@ import { updateEmail, updatePassword, signup, updateName, updateConfirmPassword}
 
 class Signup extends React.Component {
 	handleSignUp = () => {
-		this.props.signup()
+		if(this.props.signup() === true){
 		//Change
-		this.props.navigation.navigate('Profile')
+			this.props.navigation.navigate('Profile')
+		}
 	}
 
 	render() {
