@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from "@emotion/native"
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import Firebase from '../config/Firebase'
 
@@ -17,7 +17,7 @@ class Profile extends React.Component {
 					<Avatar source={require("../assets/profile.png")} />
 					<Title>Welcome back,</Title>
 					<Name>{this.props.user.name}</Name>
-					<Button title='Logout' onPress={this.handleSignout} />
+					<LogOut onPress={this.handleSignout}>Log Out</LogOut>
 				</Titlebar>
 			</Container>
 		)
@@ -44,6 +44,19 @@ const Avatar = styled.Image`
 	left: 0;
 `
 
+const LogOut = styled.Text`
+	font-size: 15px;
+	font-weight: 500;
+	width: 60px;
+	height: 60px;
+	margin-top: 20px;
+	margin-right: 20px;
+	position: absolute;
+	color: #032c8e,
+	top: 0;
+	right: 0;
+`
+
 const Title = styled.Text`
 	font-size: 20px;
 	font-weight: 500;
@@ -57,11 +70,9 @@ const Name = styled.Text`
 `
 
 const styles = StyleSheet.create({
-	Button: {
-		flex: 1,
-		position: 'absolute',
-		top: 0,
-		left: 0,
+	LogOut: {
+		color: "black",
+		right: 0
 	}
 })
 
