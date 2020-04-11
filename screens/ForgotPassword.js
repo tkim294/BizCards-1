@@ -1,6 +1,8 @@
 import React, { Component, Fragment, useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, TextInput, Keyboard, Alert } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Button,  TextInput, Keyboard, Alert, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { connect } from 'react-redux'
+import Firebase from '../config/Firebase'
 
 const ForgotPassword = props => {
     const [email, setEmail] = useState('');
@@ -29,8 +31,11 @@ const ForgotPassword = props => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.MainText}>Forgot Password?</Text>
-            <View>
+            <Image
+                style={styles.tinyLogo}
+                source={require('../assets/logo1M.png')}
+            />
+            <Text style={styles.MainText}>Forgot Your Password?</Text>
                 <View style={styles.iconContainer}>
                     <View><Ionicons name="md-mail" size={30} /></View>
                     <View>
@@ -42,7 +47,6 @@ const ForgotPassword = props => {
                         />
                     </View>
                 </View>
-                <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         style={styles.sendButton}
                         title='Submit'
@@ -50,10 +54,12 @@ const ForgotPassword = props => {
                         onPress={sendHandler}
                         color='black'
                     >
-                        <Text style={styles.sendText}>SEND</Text>
+                        <Text style={styles.sendText}>Reset Your Password</Text>
                     </TouchableOpacity>
-                </View>
-            </View>
+            <Button
+                    title="Remembered Your Password? Login"
+                    onPress={() => this.props.navigation.navigate('Login')}
+                />
         </View>
     );
 }
@@ -65,6 +71,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    tinyLogo:{
+        marginBottom:30
+    },
     MainText: {
         fontWeight: "bold",
         height: 50,
@@ -75,7 +84,7 @@ const styles = StyleSheet.create({
         marginBottom: 15,
     },
     buttonContainer: {
-        width: 100,
+        width: 250,
         paddingVertical: 10,
         alignItems: 'center',
         justifyContent: 'center',
@@ -104,7 +113,7 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 10,
+        marginTop: 30,
     },
     sendText: {
         color: 'white',
