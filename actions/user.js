@@ -52,8 +52,10 @@ export const login = () => {
 			const response = await Firebase.auth().signInWithEmailAndPassword(email, password)
 
 			dispatch(getUser(response.user.uid))
+			return true;
 		} catch (e) {
 			alert(e)
+			return false;
 		}
 	}
 }
