@@ -2,7 +2,6 @@
 Customizable Electronic business cards
 
 ### Run The code:
-#### rename reducer > reducers
 #### remove project documents dir
 #### create .env file (follow .env-example syntax)
 #####
