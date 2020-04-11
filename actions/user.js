@@ -43,6 +43,12 @@ export const login = () => {
 	return async (dispatch, getState) => {
 		try {
 			const { email, password } = getState().user
+			if(email === undefined){
+					throw "Email is Required!"
+			}
+			if(password === undefined){
+					throw "Password is Required!"
+			}
 			const response = await Firebase.auth().signInWithEmailAndPassword(email, password)
 
 			dispatch(getUser(response.user.uid))
@@ -71,9 +77,21 @@ export const signup = () => {
 	return async (dispatch, getState) => {
 		try {
 			const { email, password, cfrmPassword, name } = getState().user
+			if(name === undefined){
+					throw "Name is Required!"
+			}
+			if(email === undefined){
+					throw "Email is Required!"
+			}
+			if(password === undefined){
+					throw "Password is Required!"
+			}
+			if(cfrmPassword === undefined){
+					throw "Confirm Password is Required!"
+			}
 			if(cfrmPassword !== password){
 					throw "Passwords do not match!"
-				}
+			}
 			const response = await Firebase.auth().createUserWithEmailAndPassword(email, password)
 			if (response.user.uid) {
 
@@ -88,9 +106,11 @@ export const signup = () => {
 					.set(user)
 
 				dispatch({ type: SIGNUP, payload: user, payload: name })
+				return true;
 			}
 		} catch (e) {
 			alert(e)
+			return false;
 		}
 	}
 }
