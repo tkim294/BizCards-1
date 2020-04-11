@@ -7,9 +7,24 @@ import Firebase from '../config/Firebase'
 
 class Login extends React.Component {
 	componentDidMount = () => {
-		if(this.props.login() === true){
-        	this.props.navigation.navigate('Profile')
-        }
+		try{
+		Firebase.auth().onAuthStateChanged(user => {
+			if (user) {
+				if(this.props.user.email === ""){
+					throw "Email is Required!"
+				}
+				if(this.props.user.password === ""){
+					throw "Password is Required!"
+				}
+				this.props.getUser(user.uid)
+				if (this.props.user != null) {
+					this.props.navigation.navigate('Profile')
+				}
+			}
+		});
+		}catch(e){
+			alert(e);
+		}
 	}
 
 	render() {

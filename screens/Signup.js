@@ -6,9 +6,27 @@ import { updateEmail, updatePassword, signup, updateName, updateConfirmPassword}
 
 class Signup extends React.Component {
 	handleSignUp = () => {
-		if(this.props.signup() === true){
-		//Change
+		try{
+			if(this.props.user.name === undefined){
+					throw "Name is Required!"
+			}
+			if(this.props.user.email === undefined){
+					throw "Email is Required!"
+			}
+			if(this.props.user.password === undefined){
+					throw "Password is Required!"
+			}
+			if(this.props.user.cfrmPassword === undefined){
+					throw "Confirm Password is Required!"
+			}
+			if(this.props.user.cfrmPassword !== this.props.user.password){
+					throw "Passwords do not match!"
+			}
+			this.props.signup()
 			this.props.navigation.navigate('Profile')
+			
+		}catch(e){
+			alert(e);
 		}
 	}
 

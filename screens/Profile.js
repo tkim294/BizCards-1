@@ -1,4 +1,5 @@
 import React from 'react'
+import styled, { css } from "@emotion/native"
 import { View, Text, StyleSheet, Button } from 'react-native'
 import { connect } from 'react-redux'
 import Firebase from '../config/Firebase'
@@ -11,21 +12,56 @@ class Profile extends React.Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<Text>Profile Screen</Text>
-				<Text>{this.props.user.email}</Text>
-				<Button title='Logout' onPress={this.handleSignout} />
-			</View>
+			<Container>
+				<Titlebar>
+					<Avatar source={require("../assets/profile.png")} />
+					<Title>Welcome back,</Title>
+					<Name>{this.props.user.name}</Name>
+					<Button title='Logout' onPress={this.handleSignout} />
+				</Titlebar>
+			</Container>
 		)
 	}
 }
 
+const Container = styled.View`
+	flex: 1;
+	background-color: white;
+`
+
+const Titlebar = styled.View`
+	width: 100%;
+	margin-top: 50px;
+	padding-left: 80px;
+`
+
+const Avatar = styled.Image`
+	width: 44px;
+	height: 44px;
+	margin-left: 20px;
+	position: absolute;
+	top: 0;
+	left: 0;
+`
+
+const Title = styled.Text`
+	font-size: 20px;
+	font-weight: 500;
+	color: #b8bece;
+`
+
+const Name = styled.Text`
+	font-size: 20px;
+	color: #333333;
+	font-weight: bold;
+`
+
 const styles = StyleSheet.create({
-	container: {
+	Button: {
 		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center'
+		position: 'absolute',
+		top: 0,
+		left: 0,
 	}
 })
 
