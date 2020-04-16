@@ -8,7 +8,7 @@ import firebase from 'firebase'
 class Login extends React.Component {
 	componentDidMount = () => {
 		try{
-		Firebase.auth().onAuthStateChanged(user => {
+		firebase.auth().onAuthStateChanged(user => {
 			if (user) {
 				if(this.props.user.email === ""){
 					throw "Email is Required!"
