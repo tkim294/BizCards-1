@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { css } from "@emotion/native"
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import Firebase from '../config/Firebase'
 
@@ -19,6 +19,9 @@ class Profile extends React.Component {
 					<Name>{this.props.user.name}</Name>
 					<LogOut onPress={this.handleSignout}>Log Out</LogOut>
 				</Titlebar>
+				<TouchableOpacity onPress={() => this.props.navigation.navigate('CreateCard')} >
+                    <Avatar source = {require("../assets/addCardIcon.png")} />
+                </TouchableOpacity>
 			</Container>
 		)
 	}

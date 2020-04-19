@@ -1,9 +1,20 @@
 import React from "react";
+import styled, { css } from "@emotion/native";
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { StyleSheet, Text, Image, TextInput, TouchableOpacity, View, FlatList } from "react-native";
 import { Card, CheckBox } from 'react-native-elements';
 
 
-export default class CreateCardScreen extends React.Component {
+class CreateCardScreen extends React.Component {
+
+    componentDidMount = () => {
+		try{
+            
+		}catch(e){
+			alert(e);
+		}
+	}
 
     constructor(props) {
         super(props);
@@ -22,7 +33,6 @@ export default class CreateCardScreen extends React.Component {
                 { name: 'Otherthings', checked: true},
                 { name: 'one otherthing', checked: false},
                 { name: 'just one more', checked: true},
-
             ]
         }
     }
@@ -35,17 +45,28 @@ export default class CreateCardScreen extends React.Component {
         data[index].checked = !data[index].checked;
         this.setState(data);
     }
+    handleCancel = () => {
+        console.log("Hit")
+        this.props.navigation.goBack();
+    }
 
     render() {
         return (
             <View style={styles.container}>
+                <Titlebar>
+					<Avatar source={require("../assets/profile.png")} />
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
+					    <Title>Cancel Card</Title>
+                    </TouchableOpacity>
+				</Titlebar>
                 <View style={styles.primaryContainer}>
                     <Card
                         title='Primary Information'
+                        titleStyle={{color:'#FFF'}}
                         containerStyle={styles.primaryCard} >
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} >
-                            <Image source={require('../../assets/defaultProPic.png')}
-                                style={{ top: 30, left: 0, width: 100, height: 100, resizeMode: 'contain' }}>
+                            <Image source={require("../assets/defaultProfPic.png")}
+                                style={{ top: 30, left: 0, width: 100, height: 100, resizeMode: 'contain', borderRadius: 15 }}>
                             </Image>
                             <View style={{ flexDirection: 'column' }} >
                                 <CheckBox containerStyle={{ width: '100%', alignSelf: 'flex-end' }} right iconRight title={this.state.firstName + " " + this.state.lastName} checked={true} />
@@ -58,7 +79,7 @@ export default class CreateCardScreen extends React.Component {
                 </View>
 
                 <View style={styles.divider}>
-                    <Text style={{ color: '#FFF', textAlign: 'center' }}>Chose which social media profiles you'd like to attach to this card!</Text>
+                    <Text style={{ color: '#032c8e', textAlign: 'center' }}>Chose which social media profiles you'd like to attach to this card!</Text>
                 </View>
 
                 <View style={styles.mediaContainer} >
@@ -81,33 +102,59 @@ export default class CreateCardScreen extends React.Component {
     }
 }
 
+const Titlebar = styled.View`
+	width: 100%;
+	margin-top: 50px;
+    padding-left: 80px;
+    margin-bottom: 25px;
+`
+
+const Avatar = styled.Image`
+	width: 44px;
+	height: 44px;
+	margin-left: 20px;
+	position: absolute;
+	top: 0;
+	left: 0;
+`
+const Title = styled.Text`
+	font-size: 20px;
+	font-weight: 500;
+	color: #b8bece;
+`
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#003f5c',
+        backgroundColor: '#FFF',
         alignItems: 'center',
         justifyContent: 'flex-start',
+    },
+    header:{
+        position: 'absolute',
+        top: 0,
+        height: 25,
+        width: '100%',
+        borderBottomColor: "#FFF"
     },
     primaryContainer: {
         position: 'relative',
         width: '90%',
         marginBottom: 10,
         padding: 0,
-        backgroundColor: "#FFF"
+        backgroundColor: "#FFF",
     },
     divider: {
         position: 'relative',
         marginTop: 0,
         marginBottom: 10,
-        color: '#FFF',
         padding: 0,
         width: '75%',
         top: 0
     },
     primaryCard: {
         borderColor: "#FFF",
-        backgroundColor: "#FFF",
+        backgroundColor: "#032c8e",
         borderRadius: 8,
         padding: 10,
         margin: 0,
@@ -120,7 +167,7 @@ const styles = StyleSheet.create({
     },
     saveBtn: {
         width: "80%",
-        backgroundColor: "#fb5b5a",
+        backgroundColor: "#032c8e",
         borderRadius: 25,
         height: 50,
         alignSelf: 'center',
@@ -132,6 +179,19 @@ const styles = StyleSheet.create({
     saveText: {
         color: "white"
     }
-
-
 });
+
+const mapDispatchToProps = dispatch => {
+	return bindActionCreators({  }, dispatch)
+}
+
+const mapStateToProps = state => {
+	return {
+		user: state.user
+	}
+}
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(CreateCardScreen)

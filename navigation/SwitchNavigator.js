@@ -5,6 +5,7 @@ import Signup from '../screens/Signup'
 import Profile from '../screens/Profile'
 import EmailSent from '../screens/EmailSentScreen'
 import ForgotPassword from '../screens/ForgotPassword'
+import CreateCard from '../screens/CreateCardScreen'
 
 const SwitchNavigator = createSwitchNavigator(
 	{
@@ -23,6 +24,9 @@ const SwitchNavigator = createSwitchNavigator(
 		EmailSent: {
 			screen: EmailSent
 		},
+		CreateCard: {
+			screen: CreateCard,
+		}
 	},
 	{
 		initialRouteName: 'Login'
