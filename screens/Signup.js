@@ -103,14 +103,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         backgroundColor:"#EFEFEF",
         color:"#032c8e",
-        borderRadius:25,
-        height:50,
+        borderRadius:20,
+        height:55,
         marginBottom:20,
         justifyContent:"center",
         padding:20
     },
     inputText:{
-        height:50,
+        height:55,
         color:"black"
     },
     forgot:{
@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
     button:{
         width:"80%",
         backgroundColor:"#032c8e",
-        borderRadius:25,
-        height:50,
+        borderRadius:20,
+        height:55,
         alignItems:"center",
         justifyContent:"center",
         marginTop:10,
