@@ -18,5 +18,11 @@ Customizable Electronic business cards
 #
 #
 #
+#
+### Barcode Generation Instructions:
+###### yarn add react-native-custom-qr-codes-expo
+###### import { QRCode } from 'react-native-custom-qr-codes-expo'
+###### <QRCode logo={require('./dab.png')} content='http://bizcards.tools/'/>
+
 Code was adapted from https://heartbeat.fritz.ai/how-to-build-an-email-authentication-app-with-firebase-firestore-and-react-native-a18a8ba78574 
 
