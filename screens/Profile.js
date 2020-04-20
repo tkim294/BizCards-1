@@ -2,11 +2,12 @@ import React from 'react'
 import styled, { css } from "@emotion/native"
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import Firebase from '../config/Firebase'
+import firebase from 'firebase'
+require('firebase/auth')
 
 class Profile extends React.Component {
 	handleSignout = () => {
-		Firebase.auth().signOut()
+		firebase.auth().signOut()
 		this.props.navigation.navigate('Login')
 	}
 
