@@ -18,8 +18,26 @@ class Profile extends React.Component {
 					<Avatar source={require("../assets/profile.png")} />
 					<Title>Welcome back,</Title>
 					<Name>{this.props.user.name}</Name>
-					<LogOut onPress={this.handleSignout}>Log Out</LogOut>
+					
 				</Titlebar>
+				<TouchableOpacity
+				   onPress={() => this.props.navigation.navigate('Settings')}
+				   style={{
+				       borderWidth:1,
+				       borderColor:'rgba(0,0,0,0.2)',
+				       alignItems:'center',
+				       justifyContent:'center',
+				       width:70,
+				       position: 'absolute',                                          
+				       top: 40,                                                    
+				       right: 10,
+				       height:70,
+				       backgroundColor:'#fff',
+				       borderRadius:100,
+				     }}
+				>
+   				<AddIcon source = {require("../assets/gear.png")} />
+  				</TouchableOpacity>
 				<TouchableOpacity
 				   onPress={() => this.props.navigation.navigate('CreateCard')}
 				   style={{
@@ -54,7 +72,7 @@ class Profile extends React.Component {
 				       borderRadius:100,
 				     }}
 				>
-   				<AddIcon source = {require("../assets/gear.png")} />
+   				<AddIcon source = {require("../assets/editCardIcon.png")} />
   				</TouchableOpacity>
 			</Container>
 		)
