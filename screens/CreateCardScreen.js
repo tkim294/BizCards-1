@@ -4,46 +4,100 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { StyleSheet, Text, Image, TextInput, TouchableOpacity, View, FlatList } from "react-native";
 import { Card, CheckBox } from 'react-native-elements';
+import * as firebaseApp from "firebase"
+import Profile from "./Profile";
 
 
 class CreateCardScreen extends React.Component {
 
-    componentDidMount = () => {
-		try{
-            
-		}catch(e){
-			alert(e);
-		}
-	}
-
     constructor(props) {
         super(props);
+        this.userInfo = firebaseApp.database().ref("/users/" + this.props.user.uid)
+
         this.state = {
-            email: "test@test.com",
-            firstName: "John",
-            lastName: "Doe",
-            mobile: "1-234-567-8910",
-            data: [
-                { name: 'Instagram', checked: true },
-                { name: 'Twitter', checked: false },
-                { name: 'GMail', checked: true },
-                { name: 'Vsco', checked: true },
-                { name: 'Yahoo', checked: false },
-                { name: 'Github', checked: true },
-                { name: 'Otherthings', checked: true},
-                { name: 'one otherthing', checked: false},
-                { name: 'just one more', checked: true},
-            ]
+            profile: [
+                { FullName: "" },
+                { Email: "", checked: true },
+                { Mobile: "", checked: false },
+                { Bio: "", checked: false }
+            ],
+            socialMedias: [],
+            timeStamp: ""
+
         }
+    }
+    componentDidMount() {
+        this.listenForUser(this.userInfo)
+    }
+
+    async listenForUser(userInfo) {
+        tempState = []
+        var loadprofile = []
+        var loadsocialMedias = []
+        var time = ""
+        await userInfo.on("value", dataSnapshot => {
+            dataSnapshot.forEach(child => {
+                if (child.key == 'profile') {
+                    var proArray = child.val()
+                    proArray.forEach((item) => {
+                        loadprofile.push(item)
+                    })
+                }
+                else if (child.key == 'medias') {
+                    var mediaArray = child.val()
+                    mediaArray.forEach((item) => {
+                        loadsocialMedias.push(item)
+                    })
+                } else {
+                    time = child.val()
+                }
+            })
+            console.log("nestedPro", loadprofile)
+            this.setState({
+                profile: loadprofile,
+                socialMedias: loadsocialMedias,
+                timeStamp: time
+            })
+            console.log(this.state)
+
+            console.log("IP", this.state.profile[0].FullName)
+            console.log("nestedMed", loadsocialMedias)
+
+        })
+
+        console.log("profile", loadprofile)
+        console.log("medias", loadsocialMedias)
+
+        console.log("state", this.state)
+
     }
 
     handleClick = this.handleClick.bind(this);
+    listenForUser = this.listenForUser.bind(this);
+    handleProfileClick = this.handleProfileClick.bind(this);
 
     handleClick(name) {
+        console.log(name)
         const data = this.state.data;
         const index = data.findIndex(x => x.name === name);
         data[index].checked = !data[index].checked;
         this.setState(data);
+    }
+
+    handleProfileClick(field){
+        temp = this.state.profile
+        if(field == this.state.profile[1]){
+            temp[1].checked = !field.checked
+        }
+        if(field == this.state.profile[2]){
+            temp[2].checked = !field.checked
+        }
+        this.setState({
+            profile: temp
+        })
+
+        console.log(this.state)
+
     }
     handleCancel = () => {
         console.log("Hit")
@@ -54,24 +108,24 @@ class CreateCardScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <Titlebar>
-					<Avatar source={require("../assets/profile.png")} />
+                    <Avatar source={require("../assets/profile.png")} />
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
-					    <Title>Cancel Card</Title>
+                        <Title>Cancel Card</Title>
                     </TouchableOpacity>
-				</Titlebar>
+                </Titlebar>
                 <View style={styles.primaryContainer}>
                     <Card
                         title='Primary Information'
-                        titleStyle={{color:'#FFF'}}
+                        titleStyle={{ color: '#FFF' }}
                         containerStyle={styles.primaryCard} >
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} >
                             <Image source={require("../assets/defaultProfPic.png")}
                                 style={{ top: 30, left: 0, width: 100, height: 100, resizeMode: 'contain', borderRadius: 15 }}>
                             </Image>
                             <View style={{ flexDirection: 'column' }} >
-                                <CheckBox containerStyle={{ width: '100%', alignSelf: 'flex-end' }} right iconRight title={this.state.firstName + " " + this.state.lastName} checked={true} />
-                                <CheckBox containerStyle={{ width: '100%', alignSelf: 'flex-end' }} right iconRight title={this.state.email} onPress={() => this.handleClick()} checked={true} />
-                                <CheckBox containerStyle={{ width: '100%', alignSelf: 'flex-end' }} right iconRight title={this.state.mobile} checked={true} />
+                            <CheckBox containerStyle={{ width: '100%', alignSelf: 'flex-end' }} right iconRight title={<Text style={{padding: 5, fontWeight: "bold", textAlign: 'center'}}>{this.state.profile[0].FullName}</Text>} checked={true} />
+                                <CheckBox containerStyle={{ width: '100%', alignSelf: 'flex-end' }} right iconRight title={<Text style={{padding: 5, fontWeight: "bold", }}>{this.state.profile[1].Email}</Text>} onPress={() => this.handleProfileClick(this.state.profile[1])} checked={this.state.profile[1].checked} />
+                                <CheckBox containerStyle={{ width: '100%', alignSelf: 'flex-end' }} right iconRight title={<Text style={{padding: 5, fontWeight: "bold", }}>{this.state.profile[2].Mobile}</Text>} onPress={() => this.handleProfileClick(this.state.profile[2])} checked={this.state.profile[2].checked} />
                             </View>
                         </View>
 
@@ -85,11 +139,9 @@ class CreateCardScreen extends React.Component {
                 <View style={styles.mediaContainer} >
                     <Card
                         containerStyle={styles.primaryCard} >
-                        {/* <View style={{ flexDirection: 'column', justifyContent: 'space-between' }} >
-                            {this.state.data.map((item) => <CheckBox right iconRight title={item.name} key={item.name} onPress={() => this.handleClick(item.name)} checked={item.checked} />)}
-                        </View> */}
-
-                        <FlatList data={this.state.data} keyExtractor={item => item.name} renderItem={({item }) =>  <CheckBox right iconRight title={item.name} key={item.name} onPress={() => this.handleClick(item.name)} checked={item.checked} />}/>
+                        {this.state.socialMedias.length != 0 ? <FlatList data={this.state.socialMedias} keyExtractor={item => item.name} renderItem={({ item }) => <CheckBox right iconRight title={item.name} key={item.name} onPress={() => this.handleClick(item.name)} checked={item.checked} />} />: 
+                        <Text style={{color: "#fff", padding: 5, fontWeight: "bold", textAlign: 'center'}}>Please add socialMedia links to enable bizCard customization</Text>
+}
 
                     </Card>
 
@@ -130,7 +182,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
-    header:{
+    header: {
         position: 'absolute',
         top: 0,
         height: 25,
@@ -182,16 +234,16 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => {
-	return bindActionCreators({  }, dispatch)
+    return bindActionCreators({}, dispatch)
 }
 
 const mapStateToProps = state => {
-	return {
-		user: state.user
-	}
+    return {
+        user: state.user
+    }
 }
 
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(CreateCardScreen)

@@ -1,5 +1,6 @@
 import Firebase, { db } from '../config/Firebase.js'
-
+import * as firebaseApp from "firebase"
+import moment from 'moment';
 // define types
 
 export const UPDATE_EMAIL = 'UPDATE_EMAIL'
@@ -10,7 +11,7 @@ export const LOGIN = 'LOGIN'
 export const SIGNUP = 'SIGNUP'
 
 // actions
-
+const date = moment().format('YYYY-MM-DD hh:mm:ss')
 export const updateEmail = email => {
 	return {
 		type: UPDATE_EMAIL,
@@ -79,10 +80,31 @@ export const signup = (user) => {
 					name: name,
 					email: email
 				}
-
 				db.collection('users')
 					.doc(response.user.uid)
 					.set(user)
+
+				firebaseApp.database().ref().child("users/" + user.uid).set({
+					profile:[
+						{
+						   FullName: user.name
+						},
+						{
+						   Email: user.email,
+						   checked:true
+						},
+						{
+						   Mobile:"",
+						   checked:false
+						},
+						{
+							Bio: "",
+							checked: false
+						}
+					 ],
+					 medias:[{}],
+					 timeStamp: date
+				});
 
 				dispatch({ type: SIGNUP, payload: user, payload: name })
 			}
