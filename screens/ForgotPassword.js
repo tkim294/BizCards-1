@@ -2,14 +2,14 @@ import React, { Component, Fragment, useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Button, TextInput, Keyboard, Alert, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { connect } from 'react-redux'
-import Firebase, { passwordReset } from '../config/Firebase'
+import { passwordReset } from '../config/Firebase'
 
 const ForgotPassword = props => {
     const [email, setEmail] = useState('');
 
     const sendHandler = () => {
         Keyboard.dismiss();
-        Firebase.passwordReset(email).then(function () {
+        passwordReset(email).then(function () {
             props.navigation.navigate({
                 routeName: 'EmailSent',
                 params: {
@@ -22,7 +22,8 @@ const ForgotPassword = props => {
                 'Invalid Email Address',
                 'Please Enter a Valid Email Address',
                 [
-                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                    { text: 'OK', onPress: () => {} },
+                    //console.log('OK Pressed')
                 ],
                 { cancelable: false }
             )
