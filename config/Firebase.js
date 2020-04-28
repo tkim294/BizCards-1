@@ -29,11 +29,8 @@ db.settings({
 	timestampsInSnapshots: true
 })
 
-Firebase = {
-	// auth
-	passwordReset: email => {
-		return firebase.auth().sendPasswordResetEmail(email)
-	}
+export const passwordReset = (email) => {
+		return firebase.auth().sendPasswordResetEmail(email);
 }
 
 export default Firebase
