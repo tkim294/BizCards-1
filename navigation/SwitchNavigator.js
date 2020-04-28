@@ -6,6 +6,7 @@ import Profile from '../screens/Profile'
 import EmailSent from '../screens/EmailSentScreen'
 import ForgotPassword from '../screens/ForgotPassword'
 import CreateCard from '../screens/CreateCardScreen'
+import EditProfile from '../screens/EditProfile'
 
 const SwitchNavigator = createSwitchNavigator(
 	{
@@ -26,6 +27,9 @@ const SwitchNavigator = createSwitchNavigator(
 		},
 		CreateCard: {
 			screen: CreateCard,
+		},
+		EditProfile: {
+			screen: EditProfile
 		}
 	},
 	{

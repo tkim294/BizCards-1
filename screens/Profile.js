@@ -38,6 +38,24 @@ class Profile extends React.Component {
 				>
    				<AddIcon source = {require("../assets/addCardIcon.png")} />
   				</TouchableOpacity>
+				  <TouchableOpacity
+				   onPress={() => this.props.navigation.navigate('EditProfile')}
+				   style={{
+				       borderWidth:1,
+				       borderColor:'rgba(0,0,0,0.2)',
+				       alignItems:'center',
+				       justifyContent:'center',
+				       width:70,
+				       position: 'absolute',                                          
+				       bottom: 10,                                                    
+				       left: 10,
+				       height:70,
+				       backgroundColor:'#fff',
+				       borderRadius:100,
+				     }}
+				>
+   				<AddIcon source = {require("../assets/gear.png")} />
+  				</TouchableOpacity>
 			</Container>
 		)
 	}
