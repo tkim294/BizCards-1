@@ -44,6 +44,12 @@ export const login = () => {
 	return async (dispatch, getState) => {
 		try {
 			const { email, password } = getState().user
+			if(email === undefined){
+				throw "Email is Required!"
+			}
+			if(password === undefined){
+				throw "Password is Required!"
+			}
 			const response = await Firebase.auth().signInWithEmailAndPassword(email, password)
 
 			dispatch(getUser(response.user.uid))
