@@ -3,19 +3,13 @@ import { View, TextInput, StyleSheet, TouchableOpacity, Text, Button, Image } fr
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { updateEmail, updatePassword, login, getUser } from '../actions/user'
-import firebase from 'firebase'
+import Firebase from '../config/Firebase'
 
 class Login extends React.Component {
 	componentDidMount = () => {
 		try{
-		firebase.auth().onAuthStateChanged(user => {
+		Firebase.auth().onAuthStateChanged(user => {
 			if (user) {
-				if(this.props.user.email === ""){
-					throw "Email is Required!"
-				}
-				if(this.props.user.password === ""){
-					throw "Password is Required!"
-				}
 				this.props.getUser(user.uid)
 				if (this.props.user != null) {
 					this.props.navigation.navigate('Profile')
