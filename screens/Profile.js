@@ -20,9 +20,24 @@ class Profile extends React.Component {
 					<Name>{this.props.user.name}</Name>
 					<LogOut onPress={this.handleSignout}>Log Out</LogOut>
 				</Titlebar>
-				<TouchableOpacity onPress={() => this.props.navigation.navigate('CreateCard')} >
-                    <Avatar source = {require("../assets/addCardIcon.png")} />
-                </TouchableOpacity>
+				<TouchableOpacity
+				   onPress={() => this.props.navigation.navigate('CreateCard')}
+				   style={{
+				       borderWidth:1,
+				       borderColor:'rgba(0,0,0,0.2)',
+				       alignItems:'center',
+				       justifyContent:'center',
+				       width:70,
+				       position: 'absolute',                                          
+				       bottom: 10,                                                    
+				       right: 10,
+				       height:70,
+				       backgroundColor:'#fff',
+				       borderRadius:100,
+				     }}
+				>
+   				<AddIcon source = {require("../assets/addCardIcon.png")} />
+  				</TouchableOpacity>
 			</Container>
 		)
 	}
@@ -46,6 +61,11 @@ const Avatar = styled.Image`
 	position: absolute;
 	top: 0;
 	left: 0;
+`
+
+const AddIcon = styled.Image`
+	width: 30px;
+	height: 30px;
 `
 
 const LogOut = styled.Text`
