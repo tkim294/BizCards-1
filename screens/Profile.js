@@ -45,7 +45,7 @@ class Profile extends React.Component {
 
 				</Titlebar>
 				<View style={styles.qrcodeContainer}>
-					<QRCode codeStyle='square' content='http://bizcards.tools/'/>
+					<QRCode codeStyle='square' content={`http://bizcards.tools/profile/${userUid}`}/>
 				</View>
 				<TouchableOpacity
 					onPress={() => this.props.navigation.navigate('Settings')}
