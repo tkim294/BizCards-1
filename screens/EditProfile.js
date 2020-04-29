@@ -115,7 +115,7 @@ class CreateCardScreen extends React.Component {
                 <Titlebar>
                     <Avatar source={require("../assets/profile.png")} />
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
-                        <Title>Cancel Edit</Title>
+                        <Title>Cancel</Title>
                     </TouchableOpacity>
                 </Titlebar>
                 <View style={styles.primaryContainer}>
@@ -125,7 +125,7 @@ class CreateCardScreen extends React.Component {
                         containerStyle={styles.primaryCard} >
                         <View style={{ flexDirection: 'row' }} >
                             <Image source={require("../assets/defaultProfPic.png")}
-                                style={{ top: 5, left: 0, width: 100, height: 100, resizeMode: 'contain', borderRadius: 15 }}>
+                                style={{ top: 5, left: 0, width: 65, height: 65, resizeMode: 'contain', borderRadius: 15 }}>
                             </Image>
                             <View style={{ flexDirection: 'column' }} >
                                 <View style={{ flexDirection: 'row' }} >
@@ -197,9 +197,10 @@ const Avatar = styled.Image`
 	left: 0;
 `
 const Title = styled.Text`
-	font-size: 20px;
-	font-weight: 500;
-	color: #b8bece;
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 5px;
+    color: black;
 `
 
 const styles = StyleSheet.create({

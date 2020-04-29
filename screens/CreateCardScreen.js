@@ -109,8 +109,9 @@ class CreateCardScreen extends React.Component {
             <View style={styles.container}>
                 <Titlebar>
                     <Avatar source={require("../assets/profile.png")} />
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
-                        <Title>Cancel Card</Title>
+                    <TouchableOpacity 
+                    onPress={() => this.props.navigation.navigate('Profile')}>
+                        <Title>Cancel</Title>
                     </TouchableOpacity>
                 </Titlebar>
                 <View style={styles.primaryContainer}>
@@ -120,7 +121,7 @@ class CreateCardScreen extends React.Component {
                         containerStyle={styles.primaryCard} >
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} >
                             <Image source={require("../assets/defaultProfPic.png")}
-                                style={{ top: 30, left: 0, width: 100, height: 100, resizeMode: 'contain', borderRadius: 15 }}>
+                                style={{ top: 30, left: 0, width: 65, height: 65, resizeMode: 'contain', borderRadius: 15 }}>
                             </Image>
                             <View style={{ flexDirection: 'column' }} >
                             <CheckBox containerStyle={{ width: '100%', alignSelf: 'flex-end' }} right iconRight title={<Text style={{padding: 5, fontWeight: "bold", textAlign: 'center'}}>{this.state.profile[0].FullName}</Text>} checked={true} />
@@ -172,7 +173,8 @@ const Avatar = styled.Image`
 const Title = styled.Text`
 	font-size: 20px;
 	font-weight: 500;
-	color: #b8bece;
+    margin-top: 5px;
+	color: black;
 `
 
 const styles = StyleSheet.create({

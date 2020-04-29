@@ -20,6 +20,7 @@ class Profile extends React.Component {
 		    name: "card_Add",
 		    color: '#032c8e',
 		    buttonSize: 50,
+		    size: 45,
 		    position: 2
 		  },
 		  {
@@ -28,6 +29,7 @@ class Profile extends React.Component {
 		    name: "card_Modify",
 		    color: '#032c8e',
 		    buttonSize: 50,
+		    size: 45,
 		    position: 1
 		  }
 		];

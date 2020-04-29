@@ -18,10 +18,21 @@ class Settings extends React.Component {
 				<Titlebar>
 					<Avatar source={require("../assets/profile.png")} />
 					<Title>Account Settings</Title>
-                    
-					    <LogOut onPress={this.handleSignout}>Log Out</LogOut>
-                   
 				</Titlebar>
+                <TouchableOpacity
+                   onPress={this.handleSignout}
+                   style={{
+                       alignItems:'center',
+                       justifyContent:'center',
+                       width:70,
+                       position: 'absolute',                                          
+                       top: 40,                                                    
+                       right: 10,
+                       height:70,
+                     }}
+                >
+                <AddIcon source = {require("../assets/logOut.png")} />
+                </TouchableOpacity>
 				<View style={styles.primaryContainer}>
                     <Card
                         containerStyle={styles.primaryCard} >
@@ -80,11 +91,9 @@ const AddIcon = styled.Image`
 	height: 30px;
 `
 
-const LogOut = styled.Text`
-	font-size: 15px;
-	font-weight: 500;
-	width: 60px;
-	height: 60px;
+const LogOut = styled.Image`
+	width: 44px;
+    height: 44px;
 	margin-top: 20px;
 	margin-right: 20px;
 	position: absolute;
@@ -94,9 +103,10 @@ const LogOut = styled.Text`
 `
 
 const Title = styled.Text`
-	font-size: 20px;
-	font-weight: 500;
-	color: #b8bece;
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 5px;
+    color: black;
 `
 
 const Name = styled.Text`
