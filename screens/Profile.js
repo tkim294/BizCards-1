@@ -64,6 +64,7 @@ class Profile extends React.Component {
 				<FloatingAction
 					actions={actions}
 					color="#032c8e"
+					overlayColor="rgba(244, 244, 255, 0.6)"	
 					onPressItem={name => {
 						if (name === "card_Add")
 							this.props.navigation.navigate('CreateCard')
