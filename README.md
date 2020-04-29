@@ -12,7 +12,7 @@ Customizable Electronic business cards
 ###### APP_ID=XXXXX
 #####
 #### place .env in the same location as .env-example (Mac view hidden files: CMD Shift .)
-#### Run yarn install; yarn add moment; yarn start
+#### Run yarn install; yarn start
 ###### (IF YOU HAVE NODE MODULES)--> rm -rf node_modules && yarn install; expo install react-native-gesture-handler; yarn start
 #### If you have any issues clear your watchman cache and it should work 
 #
