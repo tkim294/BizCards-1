@@ -5,14 +5,22 @@ import { connect } from 'react-redux'
 import { updateEmail, updatePassword, login, getUser } from '../actions/user'
 import Firebase from '../config/Firebase'
 
+let userUid; // added
+
 class Login extends React.Component {
 	componentDidMount = () => {
 		try{
 		Firebase.auth().onAuthStateChanged(user => {
 			if (user) {
+				userUid = user.uid // added
 				this.props.getUser(user.uid)
 				if (this.props.user != null) {
-					this.props.navigation.navigate('Profile')
+					this.props.navigation.navigate({
+						routeName: 'Profile',
+						params: {
+							userUid: userUid, // added
+						}
+					})
 				}
 			}
 		});

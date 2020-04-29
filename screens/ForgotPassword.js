@@ -22,7 +22,7 @@ const ForgotPassword = props => {
                 'Invalid Email Address',
                 'Please Enter a Valid Email Address',
                 [
-                    { text: 'OK', onPress: () => {} },
+                    { text: 'OK', onPress: () => { } },
                     //console.log('OK Pressed')
                 ],
                 { cancelable: false }
@@ -38,13 +38,15 @@ const ForgotPassword = props => {
             />
             <Text style={styles.MainText}>Forgot Your Password?</Text>
             <View style={styles.iconContainer}>
-                <View><Ionicons name="md-mail" size={30} /></View>
-                <View>
+                <View style={styles.textInput} >
+                    <View><Ionicons style={styles.searchIcon} name="md-mail" size={30} /></View>
                     <TextInput
-                        style={styles.textInput}
-                        placeholder="Enter email"
+                        style={styles.textStyle}
+                        placeholder="Please enter email"
+                        placeholderTextColor="#8BB8CE"
                         onChangeText={text => setEmail(text)}
                         underlineColorAndroid="transparent"
+                        autoCapitalize='none'
                     />
                 </View>
             </View>
@@ -95,14 +97,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     textInput: {
-        fontSize: 15,
-        marginLeft: 10,
-        width: 200,
-        borderColor: "white",
-        borderBottomColor: '#000',
-        borderBottomWidth: 2,
-        padding: 2,
-        textAlign: 'left',
+        flexDirection: 'row',
+        width: "80%",
+        fontWeight: 'bold',
+        backgroundColor: "#EFEFEF",
+        color: "#032c8e",
+        borderRadius: 20,
+        height: 55,
+        width: 300,
+        marginBottom: 20,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        padding: 20
     },
     iconContainer: {
         flexDirection: 'row',
@@ -124,6 +130,12 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         margin: 10,
+    },
+    searchIcon: {
+        margin: 15,
+    },
+    textStyle: {
+        fontSize: 15,
     }
 })
 export default ForgotPassword;

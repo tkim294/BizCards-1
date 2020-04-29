@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from "@emotion/native"
+import { QRCode } from 'react-native-custom-qr-codes-expo';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { FloatingAction } from "react-native-floating-action";
@@ -13,25 +14,27 @@ class Profile extends React.Component {
 	}
 
 	render() {
+		const userUid = this.props.navigation.getParam('userUid'); //added
+
 		const actions = [
-		  {
-		    text: "Add Card",
-		    icon: require("../assets/addCardIcon.png"),
-		    name: "card_Add",
-		    color: '#032c8e',
-		    buttonSize: 50,
-		    size: 45,
-		    position: 2
-		  },
-		  {
-		    text: "Modify Card",
-		    icon: require("../assets/editCardIcon.png"),
-		    name: "card_Modify",
-		    color: '#032c8e',
-		    buttonSize: 50,
-		    size: 45,
-		    position: 1
-		  }
+			{
+				text: "Add Card",
+				icon: require("../assets/addCardIcon.png"),
+				name: "card_Add",
+				color: '#032c8e',
+				buttonSize: 50,
+				size: 45,
+				position: 2
+			},
+			{
+				text: "Modify Card",
+				icon: require("../assets/editCardIcon.png"),
+				name: "card_Modify",
+				color: '#032c8e',
+				buttonSize: 50,
+				size: 45,
+				position: 1
+			}
 		];
 		return (
 			<Container>
@@ -39,32 +42,35 @@ class Profile extends React.Component {
 					<Avatar source={require("../assets/profile.png")} />
 					<Title>Welcome back,</Title>
 					<Name>{this.props.user.name}</Name>
-					
+
 				</Titlebar>
+				<View style={styles.qrcodeContainer}>
+					<QRCode codeStyle='square' content='http://bizcards.tools/'/>
+				</View>
 				<TouchableOpacity
-				   onPress={() => this.props.navigation.navigate('Settings')}
-				   style={{
-				       alignItems:'center',
-				       justifyContent:'center',
-				       width:70,
-				       position: 'absolute',                                          
-				       top: 40,                                                    
-				       right: 10,
-				       height:70,
-				     }}
+					onPress={() => this.props.navigation.navigate('Settings')}
+					style={{
+						alignItems: 'center',
+						justifyContent: 'center',
+						width: 70,
+						position: 'absolute',
+						top: 40,
+						right: 10,
+						height: 70,
+					}}
 				>
-   				<AddIcon source = {require("../assets/gear.png")} />
-  				</TouchableOpacity>
-  				<FloatingAction
-				    actions={actions}
-				    color="#032c8e"			    
-				    onPressItem={name => {
-				      if(name === "card_Add")
-				      	this.props.navigation.navigate('CreateCard')
-				      if(name === "card_Modify")
-				      	this.props.navigation.navigate('EditProfile')
-				    }}
-				  />
+					<AddIcon source={require("../assets/gear.png")} />
+				</TouchableOpacity>
+				<FloatingAction
+					actions={actions}
+					color="#032c8e"
+					onPressItem={name => {
+						if (name === "card_Add")
+							this.props.navigation.navigate('CreateCard')
+						if (name === "card_Modify")
+							this.props.navigation.navigate('EditProfile')
+					}}
+				/>
 			</Container>
 		)
 	}
@@ -124,6 +130,13 @@ const styles = StyleSheet.create({
 	LogOut: {
 		color: "black",
 		right: 0
+	}, 
+	qrcodeContainer: {
+		justifyContent: 'center',
+		// alignItems: 'center',
+		width: '50%',
+		height: '50%',
+		margin: 50
 	}
 })
 
