@@ -2,6 +2,7 @@ import React from 'react'
 import styled, { css } from "@emotion/native"
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
+import { FloatingAction } from "react-native-floating-action";
 import firebase from 'firebase'
 require('firebase/auth')
 
@@ -12,6 +13,24 @@ class Profile extends React.Component {
 	}
 
 	render() {
+		const actions = [
+		  {
+		    text: "Add Card",
+		    icon: require("../assets/addCardIcon.png"),
+		    name: "card_Add",
+		    color: '#032c8e',
+		    buttonSize: 50,
+		    position: 2
+		  },
+		  {
+		    text: "Modify Card",
+		    icon: require("../assets/editCardIcon.png"),
+		    name: "card_Modify",
+		    color: '#032c8e',
+		    buttonSize: 50,
+		    position: 1
+		  }
+		];
 		return (
 			<Container>
 				<Titlebar>
@@ -23,8 +42,6 @@ class Profile extends React.Component {
 				<TouchableOpacity
 				   onPress={() => this.props.navigation.navigate('Settings')}
 				   style={{
-				       borderWidth:1,
-				       borderColor:'rgba(0,0,0,0.2)',
 				       alignItems:'center',
 				       justifyContent:'center',
 				       width:70,
@@ -32,48 +49,20 @@ class Profile extends React.Component {
 				       top: 40,                                                    
 				       right: 10,
 				       height:70,
-				       backgroundColor:'#fff',
-				       borderRadius:100,
 				     }}
 				>
    				<AddIcon source = {require("../assets/gear.png")} />
   				</TouchableOpacity>
-				<TouchableOpacity
-				   onPress={() => this.props.navigation.navigate('CreateCard')}
-				   style={{
-				       borderWidth:1,
-				       borderColor:'rgba(0,0,0,0.2)',
-				       alignItems:'center',
-				       justifyContent:'center',
-				       width:70,
-				       position: 'absolute',                                          
-				       bottom: 10,                                                    
-				       right: 10,
-				       height:70,
-				       backgroundColor:'#fff',
-				       borderRadius:100,
-				     }}
-				>
-   				<AddIcon source = {require("../assets/addCardIcon.png")} />
-  				</TouchableOpacity>
-				  <TouchableOpacity
-				   onPress={() => this.props.navigation.navigate('EditProfile')}
-				   style={{
-				       borderWidth:1,
-				       borderColor:'rgba(0,0,0,0.2)',
-				       alignItems:'center',
-				       justifyContent:'center',
-				       width:70,
-				       position: 'absolute',                                          
-				       bottom: 10,                                                    
-				       left: 10,
-				       height:70,
-				       backgroundColor:'#fff',
-				       borderRadius:100,
-				     }}
-				>
-   				<AddIcon source = {require("../assets/editCardIcon.png")} />
-  				</TouchableOpacity>
+  				<FloatingAction
+				    actions={actions}
+				    color="#032c8e"			    
+				    onPressItem={name => {
+				      if(name === "card_Add")
+				      	this.props.navigation.navigate('CreateCard')
+				      if(name === "card_Modify")
+				      	this.props.navigation.navigate('EditProfile')
+				    }}
+				  />
 			</Container>
 		)
 	}
