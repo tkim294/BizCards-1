@@ -1,11 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import styled, { css } from "@emotion/native";
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { StyleSheet, Text, Image, TextInput, TouchableOpacity, View, FlatList } from "react-native";
-import { Card, CheckBox } from 'react-native-elements';
+import { StyleSheet, Text, Image, TextInput, TouchableOpacity, View, FlatList, Alert} from "react-native";
+import { Card, CheckBox, Icon } from 'react-native-elements';
 import * as firebaseApp from "firebase"
-import Profile from "./Profile";
+import moment from 'moment';
 
 
 class CreateCardScreen extends React.Component {
@@ -21,12 +21,7 @@ class CreateCardScreen extends React.Component {
                 { Mobile: "", checked: false },
                 { Bio: "", checked: false }
             ],
-            socialMedias: [
-                { Facebook: ""},
-                { Twitter: ""},
-                { LinkedIn: ""},
-                { GitHub: ""}
-            ],
+            socialMedias: [],
             timeStamp: ""
 
         }
@@ -77,36 +72,77 @@ class CreateCardScreen extends React.Component {
 
     }
 
-    handleClick = this.handleClick.bind(this);
     listenForUser = this.listenForUser.bind(this);
-    handleProfileClick = this.handleProfileClick.bind(this);
+    handleProfileEdit = this.handleProfileEdit.bind(this);
+    handleAddLink = this.handleAddLink.bind(this);
 
-    handleClick(name) {
-        console.log(name)
-        const data = this.state.data;
-        const index = data.findIndex(x => x.name === name);
-        data[index].checked = !data[index].checked;
-        this.setState(data);
+    handleAddLink(){
+
     }
 
-    handleProfileClick(field){
+    handleProfileEdit(field, index) {
+        // currState = this.state
         temp = this.state.profile
-        if(field == this.state.profile[1]){
-            temp[1].checked = !field.checked
+        console.log(temp)
+
+        if (index == 0) {
+            //fullname
+            temp[0].FullName = field
         }
-        if(field == this.state.profile[2]){
-            temp[2].checked = !field.checked
+        if (index == 1) {
+            //email
+            temp[1].Email = field
         }
+        if (index == 2) {
+            //fullname
+            temp[2].Mobile = field
+        }
+        if (index == 3) {
+            //fullname
+            temp[3].Bio = field
+        }
+        // date =  moment().format('YYYY-MM-DD hh:mm:ss')
+        // temp.timeStamp = date
         this.setState({
-            profile: temp
+            profile: temp,
+            timeStamp: moment().format('YYYY-MM-DD hh:mm:ss')
         })
 
-        console.log(this.state)
+        console.log("new State", this.state.profile)
 
     }
     handleCancel = () => {
         console.log("Hit")
         this.props.navigation.goBack();
+    }
+
+    handleProfileSave(){
+        temp = this.state.profile;
+        console.log(temp)
+        validSave = true
+        if (temp[0].FullName.trim() == ""){
+            validSave = false
+        }
+        if (temp[1].Email.trim() == ""){
+            validSave = false
+        }
+        if (temp[2].Mobile.trim() == ""){
+            validSave = false
+        }
+        if (temp[3].Bio.trim() == ""){
+            validSave = false
+        }
+
+        if(validSave){
+            console.log("finalState", this.state)
+            return firebaseApp.database().ref("/users/" + this.props.user.uid).update(this.state).then(() =>{
+                Alert.alert("Save Successful", "The adjusts you've made on your profile have been saved!");
+                this.props.navigation.navigate('Profile')
+            })
+        } else {
+            Alert.alert("Save Unsuccessful", "Please make sure you have entered valid entries for all primary information fields!");
+
+        }
     }
 
     render() {
@@ -121,28 +157,36 @@ class CreateCardScreen extends React.Component {
                 <View style={styles.primaryContainer}>
                     <Card
                         title='Edit Primary Information'
-                        titleStyle={{ color: '#FFF' }}
+                        titleStyle={{ color: '#137AC2' }}
                         containerStyle={styles.primaryCard} >
                         <View style={{ flexDirection: 'row' }} >
                             <Image source={require("../assets/defaultProfPic.png")}
                                 style={{ top: 5, left: 0, width: 65, height: 65, resizeMode: 'contain', borderRadius: 15 }}>
                             </Image>
-                            <View style={{ flexDirection: 'column' }} >
-                                <View style={{ flexDirection: 'row' }} >
-                                    <Text style={{color: '#FFF', textAlignVertical: 'center'}}>Full Name: </Text>
-                                    <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.props.user.name} onChangeText={fullName => this.setState({ fullName })} />
+                            <View style={{ flexDirection: 'column' , }} >
+                                <View style={{ flexDirection: 'row', }} >
+                                    <Text style={{ color: '#137AC2', textAlignVertical: 'center', left:0}}>Full Name: </Text>
+                                    <TouchableOpacity style={{backgroundColor:'#FFF', borderColor: '#000', right:0 }}>
+                                        <TextInput containerStyle={{ width: '100%'}} value={this.state.profile[0].FullName}  onChangeText={fullName => this.handleProfileEdit(fullName, 0)} />
+                                    </TouchableOpacity>
                                 </View>
                                 <View style={{ flexDirection: 'row' }} >
-                                    <Text style={{color: '#FFF', textAlignVertical: 'center'}}>Email: </Text>
-                                    <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.props.user.email} onChangeText={Email => this.setState({ Email })} />
+                                    <Text style={{ color: '#137AC2', textAlignVertical: 'center' }}>Email: </Text>
+                                    <TouchableOpacity >
+                                        <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.state.profile[1].Email}  onChangeText={Email => this.handleProfileEdit(Email, 1)} />
+                                    </TouchableOpacity>
                                 </View>
                                 <View style={{ flexDirection: 'row' }} >
-                                    <Text style={{color: '#FFF', textAlignVertical: 'center'}}>Mobile: </Text>
-                                    <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.state.Mobile} onChangeText={Mobile => this.setState({ Mobile })} />
+                                    <Text style={{ color: '#137AC2', textAlignVertical: 'center' }}>Mobile: </Text>
+                                    <TouchableOpacity >
+                                        <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.state.profile[2].Mobile} onChangeText={Mobile => this.handleProfileEdit(Mobile, 2)} />
+                                    </TouchableOpacity>
                                 </View>
                                 <View style={{ flexDirection: 'row' }} >
-                                    <Text style={{color: '#FFF', textAlignVertical: 'center'}}>Bio: </Text>
-                                    <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.state.Bio} onChangeText={Bio => this.setState({ Bio })} />
+                                    <Text style={{ color: '#137AC2', textAlignVertical: 'center' }}>Bio: </Text>
+                                    <TouchableOpacity >
+                                    <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.state.profile[3].Bio}  onChangeText={Bio => this.handleProfileEdit(Bio, 3)} />
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </View>
@@ -150,35 +194,28 @@ class CreateCardScreen extends React.Component {
                     </Card>
                     <Card
                         title='Edit Social Media Information'
-                        titleStyle={{ color: '#FFF' }}
+                        titleStyle={{ color: '#137AC2' }}
                         containerStyle={styles.primaryCard} >
-                            <View style={{ flexDirection: 'column' }} >
-                                <View style={{ flexDirection: 'row' }} >
-                                    <Text style={{color: '#FFF', textAlignVertical: 'center'}}>Facebook url: </Text>
-                                    <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.state.Facebook} onChangeText={Facebook => this.setState({ Facebook })} />
-                                </View>
-                                <View style={{ flexDirection: 'row' }} >
-                                    <Text style={{color: '#FFF', textAlignVertical: 'center'}}>Twitter url: </Text>
-                                    <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.state.Twitter} onChangeText={Twitter => this.setState({ Twitter })} />
-                                </View>
-                                <View style={{ flexDirection: 'row' }} >
-                                    <Text style={{color: '#FFF', textAlignVertical: 'center'}}>LinkedIn url: </Text>
-                                    <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.state.LinkedIn} onChangeText={LinkedIn => this.setState({ LinkedIn })} />
-                                </View>
-                                <View style={{ flexDirection: 'row' }} >
-                                    <Text style={{color: '#FFF', textAlignVertical: 'center'}}>GitHub url: </Text>
-                                    <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.state.GitHub} onChangeText={GitHub => this.setState({ GitHub })} />
-                                </View>
-                            </View>
+
+                        {this.state.socialMedias.length == 0 ? 
+                            <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'center'}} onPress={()=> this.handleAddLink()}>
+                                <Icon name='account-plus' type='material-community'/>
+                                <Text style={{textAlign:'center', fontWeight: 'bold' ,paddingLeft: 10, paddingTop:5, textAlignVertical:'bottom'}}>Add social media link</Text>
+                            </TouchableOpacity>
+                        : <FlatList data={this.state.socialMedias} keyExtractor={item => item.name} renderItem={({ item }) => <Text>{item}</Text>} />
+
+                        
+}
                     </Card>
                 </View>
-                <TouchableOpacity style={styles.saveBtn} onPress={() => this.props.navigation.navigate('Profile')}>
+                <TouchableOpacity style={styles.saveBtn} onPress={() => this.handleProfileSave()}>
                     <Text style={styles.saveText}>Save Profile</Text>
                 </TouchableOpacity>
             </View>
-            
+
         );
     }
+    
 }
 
 const Titlebar = styled.View`
@@ -219,6 +256,7 @@ const styles = StyleSheet.create({
     },
     primaryContainer: {
         position: 'relative',
+        alignSelf:'center',
         width: '90%',
         marginBottom: 10,
         padding: 0,
@@ -233,11 +271,12 @@ const styles = StyleSheet.create({
         top: 0
     },
     primaryCard: {
-        borderColor: "#FFF",
-        backgroundColor: "#032c8e",
+        borderColor: "#137AC2",
+        borderWidth: 5,
+        backgroundColor: "#FFF",
         borderRadius: 8,
         padding: 10,
-        margin: 0,
+        margin: 10,
     },
     mediaContainer: {
         position: 'relative',
@@ -246,8 +285,10 @@ const styles = StyleSheet.create({
         marginBottom: 0,
     },
     saveBtn: {
+        position:'absolute',
+        bottom: 15,
         width: "80%",
-        backgroundColor: "#032c8e",
+        backgroundColor: "#137AC2",
         borderRadius: 25,
         height: 50,
         alignSelf: 'center',

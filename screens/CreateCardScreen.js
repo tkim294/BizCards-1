@@ -117,7 +117,7 @@ class CreateCardScreen extends React.Component {
                 <View style={styles.primaryContainer}>
                     <Card
                         title='Primary Information'
-                        titleStyle={{ color: '#FFF' }}
+                        titleStyle={{ color: '#137AC2' }}
                         containerStyle={styles.primaryCard} >
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }} >
                             <Image source={require("../assets/defaultProfPic.png")}
@@ -134,14 +134,14 @@ class CreateCardScreen extends React.Component {
                 </View>
 
                 <View style={styles.divider}>
-                    <Text style={{ color: '#032c8e', textAlign: 'center' }}>Chose which social media profiles you'd like to attach to this card!</Text>
+                    <Text style={{ color: '#137AC2', textAlign: 'center' }}>Chose which social media profiles you'd like to attach to this card!</Text>
                 </View>
 
                 <View style={styles.mediaContainer} >
                     <Card
                         containerStyle={styles.primaryCard} >
                         {this.state.socialMedias.length != 0 ? <FlatList data={this.state.socialMedias} keyExtractor={item => item.name} renderItem={({ item }) => <CheckBox right iconRight title={item.name} key={item.name} onPress={() => this.handleClick(item.name)} checked={item.checked} />} />: 
-                        <Text style={{color: "#fff", padding: 5, fontWeight: "bold", textAlign: 'center'}}>Please add socialMedia links to enable bizCard customization</Text>
+                        <Text style={{color: "#137AC2", padding: 5, fontWeight: "bold", textAlign: 'center'}}>Please add socialMedia links to enable bizCard customization</Text>
 }
 
                     </Card>
@@ -207,8 +207,8 @@ const styles = StyleSheet.create({
         top: 0
     },
     primaryCard: {
-        borderColor: "#FFF",
-        backgroundColor: "#032c8e",
+        borderColor: "#137AC2",
+        backgroundColor: "#FFF",
         borderRadius: 8,
         padding: 10,
         margin: 0,
@@ -220,8 +220,10 @@ const styles = StyleSheet.create({
         marginBottom: 0,
     },
     saveBtn: {
+        position:'absolute',
+        bottom: 15,
         width: "80%",
-        backgroundColor: "#032c8e",
+        backgroundColor: "#137AC2",
         borderRadius: 25,
         height: 50,
         alignSelf: 'center',

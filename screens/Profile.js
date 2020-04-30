@@ -18,7 +18,7 @@ class Profile extends React.Component {
 
 		const actions = [
 			{
-				text: "Add Card",
+				text: "Set Card",
 				icon: require("../assets/addCardIcon.png"),
 				name: "card_Add",
 				color: '#032c8e',
@@ -27,7 +27,7 @@ class Profile extends React.Component {
 				position: 2
 			},
 			{
-				text: "Modify Card",
+				text: "Modify Profile",
 				icon: require("../assets/editCardIcon.png"),
 				name: "card_Modify",
 				color: '#032c8e',
