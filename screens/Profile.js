@@ -49,7 +49,7 @@ class Profile extends React.Component {
 				<View style={styles.qrcodeContainer}>
 					<QRCodeBlock >
 						<TouchableOpacity onPress={this._handlePressButtonAsync}>
-							<QRCode codeStyle='square' content={`http://bizcards.tools/profile/${userUid}`}/>
+							<QRCode logo={require("../assets/profile.png")} codeStyle='square' content={`http://bizcards.tools/profile/${userUid}`}/>
 						</TouchableOpacity>
 					</QRCodeBlock>
 				</View>
