@@ -45,7 +45,9 @@ class Profile extends React.Component {
 
 				</Titlebar>
 				<View style={styles.qrcodeContainer}>
+					<QRCodeBlock>
 					<QRCode codeStyle='square' content={`http://bizcards.tools/profile/${userUid}`}/>
+					</QRCodeBlock>
 				</View>
 				<TouchableOpacity
 					onPress={() => this.props.navigation.navigate('Settings')}
@@ -80,6 +82,10 @@ class Profile extends React.Component {
 const Container = styled.View`
 	flex: 1;
 	background-color: white;
+`
+
+const QRCodeBlock = styled.View`
+	padding-top: 50%;
 `
 
 const Titlebar = styled.View`
@@ -134,9 +140,7 @@ const styles = StyleSheet.create({
 	}, 
 	qrcodeContainer: {
 		justifyContent: 'center',
-		width: '50%',
-		height: '50%',
-		margin: 50
+    	alignItems: 'center'
 	}
 })
 
