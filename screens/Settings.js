@@ -17,7 +17,9 @@ class Settings extends React.Component {
 			<Container style={styles.container}>
 				<Titlebar>
 					<Avatar source={require("../assets/profile.png")} />
-					<Title>Account Settings</Title>
+					<TouchableOpacity onPress={() => this.props.navigation.navigate('Profile')}>
+                        <Title>Cancel</Title>
+                    </TouchableOpacity>
 				</Titlebar>
                 <TouchableOpacity
                    onPress={this.handleSignout}
@@ -35,6 +37,8 @@ class Settings extends React.Component {
                 </TouchableOpacity>
 				<View style={styles.primaryContainer}>
                     <Card
+                        title='Account Information'
+                        titleStyle={{ color: '#137AC2' }}
                         containerStyle={styles.primaryCard} >
                         <View style={{ flexDirection: 'row' }} >
                             <View style={{ flexDirection: 'column' }} >
@@ -54,10 +58,10 @@ class Settings extends React.Component {
                         </View>
 
                     </Card>
-                    <TouchableOpacity style={styles.saveBtn} onPress={() => this.props.navigation.navigate('Home')}>
+                    <TouchableOpacity style={styles.saveBtn} onPress={() => this.props.navigation.navigate('Profile')}>
                         <Text style={styles.saveText}>Save Account Changes</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.saveBtn} onPress={() => this.props.navigation.navigate('Home')}>
+                    <TouchableOpacity style={styles.saveBtn} onPress={() => this.props.navigation.navigate('Profile')}>
                         <Text style={styles.saveText}>Delete Account</Text>
                     </TouchableOpacity>
                 </View>
