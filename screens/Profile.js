@@ -5,6 +5,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { FloatingAction } from "react-native-floating-action";
 import firebase from 'firebase'
+import * as WebBrowser from 'expo-web-browser';
 require('firebase/auth')
 
 class Profile extends React.Component {
@@ -12,6 +13,7 @@ class Profile extends React.Component {
 		firebase.auth().signOut()
 		this.props.navigation.navigate('Login')
 	}
+
 
 	render() {
 		const userUid = this.props.navigation.getParam('userUid'); //added
@@ -45,8 +47,10 @@ class Profile extends React.Component {
 
 				</Titlebar>
 				<View style={styles.qrcodeContainer}>
-					<QRCodeBlock>
-					<QRCode codeStyle='square' content={`http://bizcards.tools/profile/${userUid}`}/>
+					<QRCodeBlock >
+						<TouchableOpacity onPress={this._handlePressButtonAsync}>
+							<QRCode codeStyle='square' content={`http://bizcards.tools/profile/${userUid}`}/>
+						</TouchableOpacity>
 					</QRCodeBlock>
 				</View>
 				<TouchableOpacity
@@ -76,7 +80,14 @@ class Profile extends React.Component {
 				/>
 			</Container>
 		)
+
 	}
+
+	_handlePressButtonAsync = async () => {
+			const userUid = this.props.navigation.getParam('userUid'); //added
+		    let result = await WebBrowser.openBrowserAsync('http://bizcards.tools/profile/'+userUid);
+		    this.setState({ result });
+		 };
 }
 
 const Container = styled.View`
