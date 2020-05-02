@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { css } from "@emotion/native"
 import { QRCode } from 'react-native-custom-qr-codes-expo';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 import { FloatingAction } from "react-native-floating-action";
 import firebase from 'firebase'
@@ -9,15 +9,29 @@ import * as WebBrowser from 'expo-web-browser';
 require('firebase/auth')
 
 class Profile extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			isLoading: true,
+		}
+	}
+	componentWillMount() {
+		setTimeout(() => {
+			this.setState({
+				isLoading: false
+			})
+		},
+		1000)
+	}
+
 	handleSignout = () => {
 		firebase.auth().signOut()
 		this.props.navigation.navigate('Login')
 	}
 
-
 	render() {
 		const userUid = this.props.navigation.getParam('userUid'); //added
-
+		
 		const actions = [
 			{
 				text: "Set Card",
@@ -38,6 +52,15 @@ class Profile extends React.Component {
 				position: 1
 			}
 		];
+
+		if(this.state.isLoading) {
+			return(
+				<View style={styles.loading} >
+					<ActivityIndicator size='large' color='#C2185B' />
+				</View>
+			);
+		}
+
 		return (
 			<Container>
 				<Titlebar>
@@ -46,10 +69,14 @@ class Profile extends React.Component {
 					<Name>{this.props.user.name}</Name>
 
 				</Titlebar>
-				<View style={styles.qrcodeContainer}>
-					<QRCodeBlock >
+				<View >
+					<QRCodeBlock style={styles.qrcodeContainer} >
 						<TouchableOpacity onPress={this._handlePressButtonAsync}>
-							<QRCode logo={require("../assets/profile.png")} codeStyle='square' content={`http://bizcards.tools/profile/${userUid}`}/>
+							<QRCode
+								logo={require("../assets/profile.png")}
+								codeStyle='square'
+								content={`http://bizcards.tools/profile/${userUid}`}
+							/>
 						</TouchableOpacity>
 					</QRCodeBlock>
 				</View>
@@ -70,7 +97,7 @@ class Profile extends React.Component {
 				<FloatingAction
 					actions={actions}
 					color="#032c8e"
-					overlayColor="rgba(244, 244, 255, 0.6)"	
+					overlayColor="rgba(244, 244, 255, 0.6)"
 					onPressItem={name => {
 						if (name === "card_Add")
 							this.props.navigation.navigate('CreateCard')
@@ -84,10 +111,10 @@ class Profile extends React.Component {
 	}
 
 	_handlePressButtonAsync = async () => {
-			const userUid = this.props.navigation.getParam('userUid'); //added
-		    let result = await WebBrowser.openBrowserAsync('http://bizcards.tools/profile/'+userUid);
-		    this.setState({ result });
-		 };
+		const userUid = this.props.navigation.getParam('userUid'); //added
+		let result = await WebBrowser.openBrowserAsync('http://bizcards.tools/profile/' + userUid);
+		this.setState({ result });
+	};
 }
 
 const Container = styled.View`
@@ -148,10 +175,16 @@ const styles = StyleSheet.create({
 	LogOut: {
 		color: "black",
 		right: 0
-	}, 
+	},
 	qrcodeContainer: {
 		justifyContent: 'center',
-    	alignItems: 'center'
+		alignItems: 'center',
+		marginBottom: 150,
+	},
+	loading: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
 	}
 })
 
