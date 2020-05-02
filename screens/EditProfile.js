@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled, { css } from "@emotion/native";
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { StyleSheet, Text, Image, TextInput, TouchableOpacity, View, FlatList, Alert} from "react-native";
+import { StyleSheet, Text, Image, TextInput, TouchableOpacity, View, FlatList, Alert, KeyboardAvoidingView } from "react-native";
 import { Card, CheckBox, Icon } from 'react-native-elements';
 import * as firebaseApp from "firebase"
 import moment from 'moment';
@@ -76,7 +76,7 @@ class CreateCardScreen extends React.Component {
     handleProfileEdit = this.handleProfileEdit.bind(this);
     handleAddLink = this.handleAddLink.bind(this);
 
-    handleAddLink(){
+    handleAddLink() {
 
     }
 
@@ -116,26 +116,26 @@ class CreateCardScreen extends React.Component {
         this.props.navigation.goBack();
     }
 
-    handleProfileSave(){
+    handleProfileSave() {
         temp = this.state.profile;
         console.log(temp)
         validSave = true
-        if (temp[0].FullName.trim() == ""){
+        if (temp[0].FullName.trim() == "") {
             validSave = false
         }
-        if (temp[1].Email.trim() == ""){
+        if (temp[1].Email.trim() == "") {
             validSave = false
         }
-        if (temp[2].Mobile.trim() == ""){
+        if (temp[2].Mobile.trim() == "") {
             validSave = false
         }
-        if (temp[3].Bio.trim() == ""){
+        if (temp[3].Bio.trim() == "") {
             validSave = false
         }
 
-        if(validSave){
+        if (validSave) {
             console.log("finalState", this.state)
-            return firebaseApp.database().ref("/users/" + this.props.user.uid).update(this.state).then(() =>{
+            return firebaseApp.database().ref("/users/" + this.props.user.uid).update(this.state).then(() => {
                 Alert.alert("Save Successful", "The adjusts you've made on your profile have been saved!");
                 this.props.navigation.navigate('Profile')
             })
@@ -163,17 +163,17 @@ class CreateCardScreen extends React.Component {
                             <Image source={require("../assets/defaultProfPic.png")}
                                 style={{ top: 5, left: 0, width: 65, height: 65, resizeMode: 'contain', borderRadius: 15 }}>
                             </Image>
-                            <View style={{ flexDirection: 'column' , }} >
+                            <View style={{ flexDirection: 'column', }} >
                                 <View style={{ flexDirection: 'row', }} >
-                                    <Text style={{ color: '#137AC2', textAlignVertical: 'center', left:0}}>Full Name: </Text>
-                                    <TouchableOpacity style={{backgroundColor:'#FFF', borderColor: '#000', right:0 }}>
-                                        <TextInput containerStyle={{ width: '100%'}} value={this.state.profile[0].FullName}  onChangeText={fullName => this.handleProfileEdit(fullName, 0)} />
+                                    <Text style={{ color: '#137AC2', textAlignVertical: 'center', left: 0 }}>Full Name: </Text>
+                                    <TouchableOpacity style={{ backgroundColor: '#FFF', borderColor: '#000', right: 0 }}>
+                                        <TextInput containerStyle={{ width: '100%' }} value={this.state.profile[0].FullName} onChangeText={fullName => this.handleProfileEdit(fullName, 0)} />
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ flexDirection: 'row' }} >
                                     <Text style={{ color: '#137AC2', textAlignVertical: 'center' }}>Email: </Text>
                                     <TouchableOpacity >
-                                        <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.state.profile[1].Email}  onChangeText={Email => this.handleProfileEdit(Email, 1)} />
+                                        <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.state.profile[1].Email} onChangeText={Email => this.handleProfileEdit(Email, 1)} />
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ flexDirection: 'row' }} >
@@ -185,7 +185,7 @@ class CreateCardScreen extends React.Component {
                                 <View style={{ flexDirection: 'row' }} >
                                     <Text style={{ color: '#137AC2', textAlignVertical: 'center' }}>Bio: </Text>
                                     <TouchableOpacity >
-                                    <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.state.profile[3].Bio}  onChangeText={Bio => this.handleProfileEdit(Bio, 3)} />
+                                        <TextInput containerStyle={{ width: '100%', alignSelf: 'flex-end' }} value={this.state.profile[3].Bio} onChangeText={Bio => this.handleProfileEdit(Bio, 3)} />
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -197,25 +197,26 @@ class CreateCardScreen extends React.Component {
                         titleStyle={{ color: '#137AC2' }}
                         containerStyle={styles.primaryCard} >
 
-                        {this.state.socialMedias.length == 0 ? 
-                            <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'center'}} onPress={()=> this.handleAddLink()}>
-                                <Icon name='account-plus' type='material-community'/>
-                                <Text style={{textAlign:'center', fontWeight: 'bold' ,paddingLeft: 10, paddingTop:5, textAlignVertical:'bottom'}}>Add social media link</Text>
+                        {this.state.socialMedias.length == 0 ?
+                            <TouchableOpacity style={{ flexDirection: 'row', justifyContent: 'center' }} onPress={() => this.handleAddLink()}>
+                                <Icon name='account-plus' type='material-community' />
+                                <Text style={{ textAlign: 'center', fontWeight: 'bold', paddingLeft: 10, paddingTop: 5, textAlignVertical: 'bottom' }}>Add social media link</Text>
                             </TouchableOpacity>
-                        : <FlatList data={this.state.socialMedias} keyExtractor={item => item.name} renderItem={({ item }) => <Text>{item}</Text>} />
+                            : <FlatList data={this.state.socialMedias} keyExtractor={item => item.name} renderItem={({ item }) => <Text>{item}</Text>} />
 
-                        
-}
+
+                        }
                     </Card>
                 </View>
-                <TouchableOpacity style={styles.saveBtn} onPress={() => this.handleProfileSave()}>
-                    <Text style={styles.saveText}>Save Profile</Text>
-                </TouchableOpacity>
+                <KeyboardAvoidingView style={styles.avoidingContainer} >
+                    <TouchableOpacity style={styles.saveBtn} onPress={() => this.handleProfileSave()}>
+                        <Text style={styles.saveText}>Save Profile</Text>
+                    </TouchableOpacity>
+                </KeyboardAvoidingView>
             </View>
-
         );
     }
-    
+
 }
 
 const Titlebar = styled.View`
@@ -256,7 +257,7 @@ const styles = StyleSheet.create({
     },
     primaryContainer: {
         position: 'relative',
-        alignSelf:'center',
+        alignSelf: 'center',
         width: '90%',
         marginBottom: 10,
         padding: 0,
@@ -285,7 +286,7 @@ const styles = StyleSheet.create({
         marginBottom: 0,
     },
     saveBtn: {
-        position:'absolute',
+        position: 'absolute',
         bottom: 15,
         width: "80%",
         backgroundColor: "#137AC2",
@@ -299,6 +300,9 @@ const styles = StyleSheet.create({
     },
     saveText: {
         color: "white"
+    },
+    avoidingContainer: {
+        flex: 1,
     }
 });
 
